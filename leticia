@@ -1,1 +1,17 @@
-ytyuyit_-t_o
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include<conioh>
+
+typedef struct node{
+unsigned racine;
+struct node *left;
+struct node *right
+} node;
+
+//fonction de recherche dans l'arbre
+
+int rechercher( node *arbre, unsigned int racine )
+{
+while(arbre)
+
