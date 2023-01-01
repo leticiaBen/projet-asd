@@ -1,3 +1,42 @@
 
-// insertion 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+//#include<conioh>
+// la structure de la liste des positions 
+typedef struct maillon {
+	int info; 
+	struct maillon *suiv ; 
+}liste ;
+//structure de l'arbre 
+typedef struct node{
+char mot [20] ;
+struct node *left;
+struct node *right; 
+list *index ; 
+} arbre;
+// le cas ou le mot n'existe pas dans l'arbre
+//--------------------------------------------------
+//-------------allocation d'un noued ---------------
+//--------------------------------------------------
+arbre *creation(char *word  ){
+	arbre *nouv= (arbre*)malloc(sizeof(arbre)); 
+	if (nouv==NULL){
+		printf("erreur ");// tester si mon noeud a été bien allouer ou nn  
+	}
+strcpy( nouv->mot , word); // nouv-> = word 
+nouv->left = NULL; 
+nouv->right = NULL; 
+return nouv ; 
+} 
+main(){
+/*just a test 
+	arbre *R; 
+	char c [20]="hi"; 
+	
+R =creation(c ); 
+printf("%s", R->mot); 
+
+ 	free(R); */ 
+
+}
