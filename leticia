@@ -1,31 +1,38 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include<conioh>
+#include <iostream>
+#include <vector>
 
-typedef struct tree{
-unsigned racine;
+typedef struct node{
 string word;
-tableau int;
+vector <int> occur;
 struct node *left;
 struct node *right
 } node;
 
 //fonction qui recherche si un mot existe deja dans l'arbre
 
-bool trouve(tree,string) {
-if(tree == NULL)
-return False
-if(string== tree.string)
-return true   //qd le mot existe on ajoute le numero de la phrase dont il figure dzns le tableau du mot
-if(string< tree.string) 
-return trouve(tree.gauche ,string)
-else return trouve(tree.droite , string)
+bool trouver(string s , node *tr , int num) {
+if(tr == NULL)
+return false
+if(s== tr -> word){
+occur.push_back(num);
+return true;
+}                                       //qd le mot existe on ajoute le numero de la phrase dont il figure dzns le tableau du mot
+else {
+if(s< tr -> word)
+return trouver(s , tr -> left);
+else return trouver(s, tr-> right);
+}
 }
 
 //si le mot existe dans l'arbre on ajoute le numero de la phrase dans le tableau 
 //s'il n existe pas on insere le mot dans l arbre et on ajoute le numero de la phrase dans le tableau du mot 
 
-if (trouve(string, tree)==true ) 
-return //ajouter le num de la phrase dans le tableau
+if (trouver(s,tr,num)==true ) //retourne rien
 else return //FONCTION DE L'INSERTION 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+int main{
+
+
+
+
