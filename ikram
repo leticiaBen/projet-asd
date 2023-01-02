@@ -74,23 +74,23 @@ main(){
  /*
  FILE *F ; arbre *R; 
  F =fopen("TPASD.txt","r"); 
+ 
  //-----tester si le fichier est bien ouvert 
- if(F ==NULL){
+ if(F ==NULL) {
  	printf("not open"); 
  }else{
- 
+ R= NULL ;
  char mot [10] ; 
  while(!feof(F)){
- 
  fscanf(F,"%s",mot); 
- insertion (R , mot);
-
+ R= insertion (R , mot);
+  
  }
- 
-
+ prefixe (R);
  }
-  fclose(F); 
- prefixe (R); */
+  
+
+ fclose(F);  */
  //-------------------------------------------------------------------------------------------------------------------
  //-------------------------------------------test-----------------------------------------------------------------------
 arbre *R; 
