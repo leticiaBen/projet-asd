@@ -3,40 +3,63 @@
 #include <stdlib.h>
 #include <string.h>
 //#include<conioh>
-// la structure de la liste des positions 
+//--------------------------------------------------
+//-------------structure list pos ---------------
+//--------------------------------------------------
+
 typedef struct maillon {
 	int info; 
 	struct maillon *suiv ; 
 }liste ;
-//structure de l'arbre 
+
+//--------------------------------------------------
+//-------------structure arbre----------------------
+//--------------------------------------------------
+
 typedef struct node{
 char mot [20] ;
 struct node *left;
-struct node *right; 
-list *index ; 
-} arbre;
-// le cas ou le mot n'existe pas dans l'arbre
+struct node *right; } arbre;
+
+// ---------------------------------------------------------le cas ou le mot n'existe pas dans l'arbre----------------------------------------------------------
 //--------------------------------------------------
 //-------------allocation d'un noued ---------------
 //--------------------------------------------------
-arbre *creation(char *word  ){
+arbre *allouer(char *word  ){
 	arbre *nouv= (arbre*)malloc(sizeof(arbre)); 
 	if (nouv==NULL){
-		printf("erreur ");// tester si mon noeud a été bien allouer ou nn  
+		printf("erreur "); 
 	}
-strcpy( nouv->mot , word); // nouv-> = word 
+strcpy( nouv->mot , word); 
 nouv->left = NULL; 
 nouv->right = NULL; 
 return nouv ; 
 } 
-main(){
-/*just a test 
-	arbre *R; 
-	char c [20]="hi"; 
-	
-R =creation(c ); 
-printf("%s", R->mot); 
+//--------------------------------------------------
+//------------------------------------------------------------------------insertion-----------------------------------------------------------------------------------
+//--------------------------------------------------
+void insertion (arbre *R , char *mot){
+arbre *nouv ; 
+ 
+	if (R==NULL){
+		// la cas ou l'arbre est vide / le pointeur déplacé à la fin
+		nouv =  allouer(mot);
+		R= nouv ;
+		return ;  
+	}else {
+		// le cas d'insertion 
+		if (strcmp(R->mot ,mot  )) {
+		   // R->mot > mot => fils droite
+		      insertion (R->right,mot); 
+		}else {
+		   // R->mot <= mot => fils gauche
+		      insertion (R->left,mot); 
+}}}
 
- 	free(R); */ 
+main(){
+ 
+ 
+ FILE *F ; 
+ F =fopen("fichierTP.txt","rb"); 
 
 }
