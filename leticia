@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#nclude <fstream>
 
 typedef struct node{
 string word;
@@ -32,6 +33,21 @@ else return //FONCTION DE L'INSERTION
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 int main{
+int num_phrase (1) ; string mot ; node *arbre ; fstream fichier{"projet asd.txt"};
+
+while(!fichier.eof()) {
+fichier>>mot;
+//insertion du mot 
+if(mot== ".") 
+num_phrase++
+
+//l'intersection
+ 
+ //leticia lina . amel ikram
+ // l'utilisateur: lina ikram
+ 
+ //intersection entre le vecteur(de l'arbre) de lina et ikram (return un 0 dans ce cas)
+}
 
 
 
