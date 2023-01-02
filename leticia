@@ -3,15 +3,29 @@
 #include <string.h>
 #include<conioh>
 
-typedef struct node{
+typedef struct tree{
 unsigned racine;
+string word;
+tableau int;
 struct node *left;
 struct node *right
 } node;
 
-//fonction de recherche dans l'arbre
+//fonction qui recherche si un mot existe deja dans l'arbre
 
-int rechercher( node *arbre, unsigned int racine )
-{
-while(arbre)
+bool trouve(tree,string) {
+if(tree == NULL)
+return False
+if(string== tree.string)
+return true   //qd le mot existe on ajoute le numero de la phrase dont il figure dzns le tableau du mot
+if(string< tree.string) 
+return trouve(tree.gauche ,string)
+else return trouve(tree.droite , string)
+}
 
+//si le mot existe dans l'arbre on ajoute le numero de la phrase dans le tableau 
+//s'il n existe pas on insere le mot dans l arbre et on ajoute le numero de la phrase dans le tableau du mot 
+
+if (trouve(string, tree)==true ) 
+return //ajouter le num de la phrase dans le tableau
+else return //FONCTION DE L'INSERTION 
