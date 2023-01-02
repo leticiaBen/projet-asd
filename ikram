@@ -9,6 +9,8 @@ typedef struct maillon {
 	int info; 
 	struct maillon *suiv ; 
 }liste ;
+//------------------------------------------------------ la structure de l'arbre-------------------------------------------------------------------- 
+
 typedef struct node{
    char mot [100] ;
    struct node *left;
