@@ -1,30 +1,46 @@
 
 
+----------------------------------------- \\ chercher l'existance d'une phrase dans un fichier texte \\--------------------------------------------------------------
 
+  void chercher (arbre R , char ch[100]) {
+ 
+int tableau [100]: T1,T2,T3;
+int i,j;
 
+n = size(ch);     \\ calculer la taille n d'une phrase \\
 
+for ( i=1; i<n ;i++) {
+printf (ch[i]) ; 
+}
+for ( j=1 ;j<n ;j++) {
 
+while ( ch[i] != \0 ) {
+ch[i] ++;
 
+if ( R != NULL ) {
+if ch[i] == *R.word {
+printf (*R.vec);        \\ tableau de position \\
+T1 = *R.vec ;
+}
+if ch[i]  < *R.word {
 
+printf (*R.vec); 
+T2 = *R.vec ;
+}
+if ch[i]  > *R.word {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+printf (*R.vec);
+T3 = *R.vec ;
+}
+}
+}
 if T1[i] == T2[i] == T3[i] {
+
 printf (" la phrase existe dans le fichier dans la ligne %d ", T1[i]);
 }
-else
-{ printf (" la phrase n'existe pas dans le fichier ");
-   }
-  }
+else {
+
+ printf (" la phrase n'existe pas dans le fichier ");
+      }
+    }
   }
