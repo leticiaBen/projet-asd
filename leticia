@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
-#nclude <fstream>
+#include <fstream>
+#using namespace std;
 
 typedef struct node{
 string word;
