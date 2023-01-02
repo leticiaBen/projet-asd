@@ -21,7 +21,7 @@
 
 
 if T1[i] == T2[i] == T3[i] {
-printf (" la phrase existe dans le fichier dans la ligne % ", T1[i]);
+printf (" la phrase existe dans le fichier dans la ligne %d ", T1[i]);
 }
 else
 { printf (" la phrase n'existe pas dans le fichier ");
