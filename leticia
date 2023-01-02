@@ -10,8 +10,8 @@ struct node *left;
 struct node *right
 } node;
 
-//fonction qui recherche si un mot existe deja dans l'arbre
-
+//----------------------fonction qui recherche si un mot existe deja dans l'arbre------------------------------
+-
 bool trouver(string s , node *tr , int num) {
 if(tr == NULL)
 return false
@@ -26,6 +26,37 @@ else return trouver(s, tr-> right);
 }
 }
 
+//-----------------------------------insertion-----------------------------------
+
+void insertion(node *&tr, string& s, int num)
+{
+    if (tr == NULL)
+    {
+        tr = new node; //allocation
+        tr->word = s;
+        tr->occur.push_back(num);
+        tr->left = NULL;
+        tr->right = NULL;
+    }
+    else
+    {
+        if(trouver(tr, s, num))
+            return;
+        else
+        {
+            if(s == ".") //ne pas considere le point comme un string
+                return;
+            else
+            {
+                if (s < tr->word)
+                    insertion(tr->left, s, num);
+                else
+                    insertion(tr->right, s, num);
+            }
+        }
+    }
+}
+
 //si le mot existe dans l'arbre on ajoute le numero de la phrase dans le tableau 
 //s'il n existe pas on insere le mot dans l arbre et on ajoute le numero de la phrase dans le tableau du mot 
 
@@ -34,11 +65,12 @@ else return //FONCTION DE L'INSERTION
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 int main{
+
 int num_phrase (1) ; string mot ; node *arbre ; fstream fichier{"projet asd.txt"};
 
 while(!fichier.eof()) {
 fichier>>mot;
-//insertion du mot 
+insertion(tr , s ,num);
 if(mot== ".") 
 num_phrase++
 
