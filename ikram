@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include<string.h>
@@ -23,7 +22,8 @@ struct node *right;
     return false ;
 	}
        //------------ le cas ou le mot existe deja dans l'arbre-------------
-    if(mot == tr->word){
+    if(strcmp(mot ,tr->word)== 0){
+            // mot = tr->word 
     return true;
     }else {
 	// le cas ou le mot  n'existe pas {la racine } on teste s'il exist dans les noeuds
@@ -62,25 +62,25 @@ node* insertion(node *tr, char *mot, int cpt  ){
     if (tr == NULL) {
     tr = allouer( mot); // allocation
 	tr->tab[cpt-1] =cpt ;
- 
-        if(trouver(mot , tr )){
-	
-	tr->tab[cpt-1] =cpt ;
-	// si le mot existe dans l'arbre alors il n'y a pas d'insertion
-	// drt le compteur des phrases f la fonction main 
-	 // cpt c'est le compteur des phrase  exemple cpt =1;   t[cpt-1]= cpt =>  t[0]= 1 ; cpt =2 =>  t[1]= 2
-	
-		}else {
-        // ----------------existe un traitment --------------
-            // le cas d'insertion
-		if (strlen(tr->word) > strlen(mot)) // R->mot > mot => fils droite
-		{
-     	tr->right = insertion (tr->right,mot, cpt);
-		}else {
-		// tr->mot <= mot => fils gauche
-		tr->left =	insertion (tr->left,mot, cpt);
-		} }}
-		return tr ;
+	return tr ;
+    }else{ if(trouver(mot , tr )==true){
+                // il y pas d'insertion
+               tr->tab[cpt-1] =cpt ;
+               return tr ;
+        }else { if (strlen(tr->word) > strlen(mot)){
+                // ----------------existe un traitment --------------
+                // le cas d'insertion
+
+                tr->right = insertion (tr->right,mot, cpt); // R->mot > mot => fils droite{
+		       return tr ;
+		       }else {
+		 // tr->mot <= mot => fils gauche
+            tr->left =	insertion (tr->left,mot,cpt);
+            return tr ;
+		}}
+
+
+		}
     }
 
 
@@ -88,17 +88,12 @@ node* insertion(node *tr, char *mot, int cpt  ){
 //------------------------------------------------------------------------------affichage----------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void prefixe (node *R){
-    int i ; int cpt ;
+   // int i ; int cpt ;
 	if (R==NULL){
 		return ;
 	}else {
-		printf(" le mot %d est : %s \n",cpt ,R->word);
-		cpt++;
-int 		val =R->tab[0]; i=0;
-		while((val=!0)&&(i<100)){
-            printf("%d",R->tab);
-            i++;
-		}
+		printf(" le mot  est : %s \n",R->word);
+		//cpt++;
 		prefixe(R->left);
 		prefixe(R->right);
 	}
@@ -122,7 +117,8 @@ int main(){
  //-----tester si le fichier est bien ouvert
  if(F ==NULL) {
  	printf("not open");
- }else{
+ 	return ;
+ }
  R= NULL ;
  char mot [10] ;
  int  cpt =1;
@@ -130,20 +126,44 @@ int main(){
  while(!feof(F)){
 
  fscanf(F,"%s",mot);
-       //le cas ou le mot ='.' alors on fait rien
-           if (mot=="."){
-	   // si le mot ="." alors il n'y a pas de traitement j'incrément le compteur 
-	         cpt++;
+       //le cas ou le mot ='.' alors o fait rien
+           if (strcmp(mot ,".")==0){
+
+            cpt++;
+
            }else{
-
             R= insertion (R , mot,cpt);
+            }
 
  }
- prefixe (R);
- }
-
+prefixe (R);
 
  fclose(F);
- }
 
-}
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
