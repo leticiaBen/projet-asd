@@ -1,3 +1,47 @@
+//-------------------------------------------------------------------------------------------------------------------------------
+//----------------------fonction qui recherche si un mot existe deja dans l'arbre--------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------
+
+
+  bool trouver(char *mot , node *tr ) {
+   if(tr == NULL){
+   //------------------- le cas ou l'arbre est vide----------
+    return false ;
+	}
+       //------------ le cas ou le mot existe deja dans l'arbre-------------
+    if(strcmp(mot ,tr->word)== 0){
+            // mot = tr->word
+    return true;
+    }else {
+	// le cas ou le mot  n'existe pas {la racine } on teste s'il exist dans les noeuds
+
+    if(strlen (mot) <  strlen(tr->word)){
+
+	return trouver(mot, tr -> left);	// si la taille (mot ) < taille (tr -> word) on cherhche dans le fils gauche
+    }else{
+
+    return trouver(mot, tr-> right); // si la taille (mot ) > taille (tr -> word) on cherhche dans le fils droite
+}}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ----------------------------------------- \\ chercher l'existance d'une phrase dans un fichier texte \\--------------------------------------------------------------
