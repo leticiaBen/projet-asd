@@ -130,7 +130,7 @@ int main(){
  while(!feof(F)){
 
  fscanf(F,"%s",mot);
-       //le cas ou le mot ='.' alors o fait rien
+       //le cas ou le mot ='.' alors on fait rien
            if (mot=="."){
 	   // si le mot ="." alors il n'y a pas de traitement j'incrément le compteur 
 	         cpt++;
