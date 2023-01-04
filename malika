@@ -1,17 +1,20 @@
-//-------------------------------------------------------------------------------------------------------------------------------
-//----------------------fonction qui recherche si un mot existe deja dans l'arbre--------------------------------------------------
-//---------------------------------------------------------------------------------------------------------------------------------
 
-main 
+
+main {     \\ dans l'algorithme pricipale 
+
+
 char m1, m2 ;
+int m , n ,i ,j ;
+int T1,T2 [100] ;
 
-{
 
 printf (" veuillez entrez deux mots ");
 scanf ("%c%c", &m1&m2 );
 
 
-
+//-------------------------------------------------------------------------------------------------------------------------------
+//----------------------fonction qui recherche si un mot existe dans un arbre --------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------
 
 
   bool trouver(char *mot , node *tr ) {
@@ -34,33 +37,31 @@ scanf ("%c%c", &m1&m2 );
 
     return trouver(mot, tr-> right); // si la taille (mot ) > taille (tr -> word) on cherhche dans le fils droite
 }}}
+
+
+//-------------------------------------------------------------------------------------------------------------------------------
+//----------------------la recherche de l'existance d'une phrase dans un fichier texte --------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------
+
  
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  if ( m1 < tr->word ) 	&& (m2 < tr->word ) {
+  return trouver ( m1 , tr->left ) ; T1 = *R.vec ;
+  return trouver ( m2 , tr->left ) ; T2 = *R.vec ;
+  else                 \\ si les mots existent dans la racine ou bien le fils droite on affiche leurs tableaux d'occurrence  
+   T1 = *R.vec ;
+   T2 = *R.vec ; 
+   }
+    n = sizeof (T1) ;
+    m = sizeof(T2) ;
+    
+    for ( i=1 ; i<n ; i++ ){
+         for ( j=1 ; j<n ; j++ ){
+                  if ( T1[i] == T2[j] ) {
+      
 printf (" la phrase existe dans le fichier dans la ligne %d ", T1[i]);
 }
 else {
 
  printf (" la phrase n'existe pas dans le fichier ");
       }
+   }   
