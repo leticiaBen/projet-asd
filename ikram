@@ -23,7 +23,7 @@ struct node *right;
 	}
        //------------ le cas ou le mot existe deja dans l'arbre-------------
     if(strcmp(mot ,tr->word)== 0){
-            // mot = tr->word 
+            // mot = tr->word
     return true;
     }else {
 	// le cas ou le mot  n'existe pas {la racine } on teste s'il exist dans les noeuds
@@ -56,26 +56,27 @@ node *allouer(char *word){
 //-----------------------------------insertion--------------------------------
 //----------------------------------------------------------------------------
 
-node* insertion(node *tr, char *mot, int cpt  ){
+node* insertion(node *tr, char *mot, int i,int cpt  ){
 
 	//----------le cas ou l'arbre vide---------
     if (tr == NULL) {
     tr = allouer( mot); // allocation
-	tr->tab[cpt-1] =cpt ;
+	tr->tab[*i] =cpt ;
 	return tr ;
     }else{ if(trouver(mot , tr )==true){
                 // il y pas d'insertion
-               tr->tab[cpt-1] =cpt ;
+
+               tr->tab[i] =cpt ;
                return tr ;
         }else { if (strlen(tr->word) > strlen(mot)){
                 // ----------------existe un traitment --------------
                 // le cas d'insertion
 
-                tr->right = insertion (tr->right,mot, cpt); // R->mot > mot => fils droite{
-		       return tr ;
+                tr->right = insertion (tr->right,mot, cpt,i); // R->mot > mot => fils droite{
+		        return tr ;
 		       }else {
 		 // tr->mot <= mot => fils gauche
-            tr->left =	insertion (tr->left,mot,cpt);
+            tr->left =	insertion (tr->left,mot,cpt, i);
             return tr ;
 		}}
 
@@ -88,11 +89,14 @@ node* insertion(node *tr, char *mot, int cpt  ){
 //------------------------------------------------------------------------------affichage----------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void prefixe (node *R){
-   // int i ; int cpt ;
+   int i ; int cpt ;
 	if (R==NULL){
 		return ;
 	}else {
 		printf(" le mot  est : %s \n",R->word);
+		for (i=0; i<3 ; i++){
+            printf("les positions des mots : %d , \n ", R->tab[i] );
+		}
 		//cpt++;
 		prefixe(R->left);
 		prefixe(R->right);
@@ -122,19 +126,19 @@ int main(){
  R= NULL ;
  char mot [10] ;
  int  cpt =1;
-
+int i =0;
  while(!feof(F)){
-
  fscanf(F,"%s",mot);
        //le cas ou le mot ='.' alors o fait rien
            if (strcmp(mot ,".")==0){
 
-            cpt++;
+            cpt++;// num de la phrase
 
            }else{
-            R= insertion (R , mot,cpt);
-            }
 
+            R= insertion (R , mot,cpt,i);
+
+            }
  }
 prefixe (R);
 
