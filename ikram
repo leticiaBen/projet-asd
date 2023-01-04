@@ -1,103 +1,149 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-//---------------------------------------------------------------------les structures------------------------------------------------------------------------------
-//------------------------------------------------------ la structure de la liste des positions-------------------------------------------------------------------- 
-
-typedef struct maillon {
-	int info; 
-	struct maillon *suiv ; 
-}liste ;
-//------------------------------------------------------ la structure de l'arbre-------------------------------------------------------------------- 
-
+#include<string.h>
+#include <stdbool.h>
+//#using namespace std;
 typedef struct node{
-   char mot [100] ;
-   struct node *left;
-   struct node *right; 
-   liste index ; 
-} arbre;
+char word [20];
+int *tab ;
+struct node *left;
+struct node *right;
+} node;
 
-//-----------------------------------------------------le cas ou le mot n'existe pas dans l'arbre--------------------------------------------------------------------
-//--------------------------------------------------
-//------------------------------------------------------------allocation d'un noued ---------------------------------------------------------------------------------
-//--------------------------------------------------
-arbre *allouer(char *word  ){
-	arbre *nouv= (arbre*)malloc(sizeof(arbre)); 
-	
-strcpy( nouv->mot , word); 
-nouv->left = NULL; 
-nouv->right = NULL; 
-return nouv ; 
-} 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//--------------------------------------------------------------insertion--------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-arbre * insertion (arbre *R , char *mot){
-	if (R==NULL){
-	  R =  allouer(mot); // le cas ou l'arbre est NULL
-	}else {
-	   if (strlen(R->mot) > strlen(mot)) {
-		// --------------taille(R->mot) > taille (mot ) => fils droite --------
-			R->right = insertion (R->right,mot); 
-		}else {
-		// -------------taille(R->mot) < = taille (mot ) => fils droite-------
-		        R->left  = insertion (R->left,mot); }
-	       return R ; }
+//-------------------------------------------------------------------------------------------------------------------------------
+//----------------------fonction qui recherche si un mot existe deja dans l'arbre--------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------
+
+
+  bool trouver(char *mot , node *tr ) {
+   if(tr == NULL){
+   //------------------- le cas ou l'arbre est vide----------
+    return false ;
 	}
+       //------------ le cas ou le mot existe deja dans l'arbre-------------
+    if(mot == tr->word){
+    return true;
+    }else {
+	// le cas ou le mot  n'existe pas {la racine } on teste s'il exist dans les noeuds
+
+    if(strlen (mot) <  strlen(tr->word)){
+
+	return trouver(mot, tr -> left);	// si la taille (mot ) < taille (tr -> word) on cherhche dans le fils gauche
+    }else{
+
+    return trouver(mot, tr-> right); // si la taille (mot ) > taille (tr -> word) on cherhche dans le fils droite
+}}}
+
+
+
+
+
+//--------------------------------------------------
+//-------------allocation d'un noued ---------------
+//--------------------------------------------------
+node *allouer(char *word){
+	node *nouv= (node*)malloc(sizeof(node));
+    strcpy( nouv->word , word);
+    nouv->left = NULL;
+    nouv->right = NULL;
+	nouv->tab =(int *)malloc (100*sizeof(int));// tableau dynamique tab[100]
+    return nouv ;
+}
+
+//----------------------------------------------------------------------------
+//-----------------------------------insertion--------------------------------
+//----------------------------------------------------------------------------
+
+node* insertion(node *tr, char *mot, int cpt  ){
+
+	//----------le cas ou l'arbre vide---------
+    if (tr == NULL) {
+    tr = allouer( mot); // allocation
+	tr->tab[cpt-1] =cpt ;
+ 
+        if(trouver(mot , tr )){
+	
+	tr->tab[cpt-1] =cpt ;
+	// si le mot existe dans l'arbre alors il n'y a pas d'insertion
+	// drt le compteur des phrases f la fonction main 
+	 // cpt c'est le compteur des phrase  exemple cpt =1;   t[cpt-1]= cpt =>  t[0]= 1 ; cpt =2 =>  t[1]= 2
+	
+		}else {
+        // ----------------existe un traitment --------------
+            // le cas d'insertion
+		if (strlen(tr->word) > strlen(mot)) // R->mot > mot => fils droite
+		{
+     	tr->right = insertion (tr->right,mot, cpt);
+		}else {
+		// tr->mot <= mot => fils gauche
+		tr->left =	insertion (tr->left,mot, cpt);
+		} }}
+		return tr ;
+    }
+
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------affichage----------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void prefixe (arbre *R){
+void prefixe (node *R){
+    int i ; int cpt ;
 	if (R==NULL){
-		return ; 
+		return ;
 	}else {
-		printf(" le mot est : %s \n",R->mot); 
-		prefixe(R->left); 
-		prefixe(R->right); 
+		printf(" le mot %d est : %s \n",cpt ,R->word);
+		cpt++;
+int 		val =R->tab[0]; i=0;
+		while((val=!0)&&(i<100)){
+            printf("%d",R->tab);
+            i++;
+		}
+		prefixe(R->left);
+		prefixe(R->right);
 	}
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------main part ---------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-main(){
- //--------------------------------- skip this part for this moment -------------------------------
- //cette partie est fait pour la fonction principale (li fiha gae les fonctions) 
- /*
- FILE *F ; arbre *R; 
- F =fopen("TPASD.txt","r"); 
- 
- //-----tester si le fichier est bien ouvert 
+//si le mot existe dans l'arbre on ajoute le numero de la phrase dans le tableau
+//s'il n existe pas on insere le mot dans l arbre et on ajoute le numero de la phrase dans le tableau du mot
+
+/*if (trouver(s,tr,num)==true ) //retourne rien
+else return //FONCTION DE L'INSERTION*/
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+int main(){
+
+
+ FILE *F ;
+ node *R;
+ F =fopen("TPASD.txt","r");
+
+ //-----tester si le fichier est bien ouvert
  if(F ==NULL) {
- 	printf("not open"); 
+ 	printf("not open");
  }else{
  R= NULL ;
- char mot [10] ; 
+ char mot [10] ;
+ int  cpt =1;
+
  while(!feof(F)){
- fscanf(F,"%s",mot); 
- R= insertion (R , mot);
-  
+
+ fscanf(F,"%s",mot);
+       //le cas ou le mot ='.' alors o fait rien
+           if (mot=="."){
+	   // si le mot ="." alors il n'y a pas de traitement j'incrément le compteur 
+	         cpt++;
+           }else{
+
+            R= insertion (R , mot,cpt);
+
  }
  prefixe (R);
  }
-  
 
- fclose(F);  */
- //--------------------------------------------------------------------------------------------------------------------------------------------------------
- 
- 
- 
- //-------------------------------------------test-----------------------------------------------------------------------
-arbre *R; 
-R= NULL ; 
-  R= insertion (R , "hiworld");
-  R= insertion (R , "done ");
-  R= insertion (R , "five");
-  R= insertion (R , "lllllllllllllllllllllllll");
-  prefixe (R);
-  
+
+ fclose(F);
+ }
+
 }
-
