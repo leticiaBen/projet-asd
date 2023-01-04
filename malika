@@ -36,7 +36,7 @@ int m , n ,i ,j ;
 int T1,T2 [100] ;
 
 
-printf (" veuillez entrez deux mots ");
+printf (" veuillez entrez la phrase que vous voullez rechercher ");
 scanf ("%c%c", &m1&m2 );
 
 
