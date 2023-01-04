@@ -61,7 +61,7 @@ node* insertion(node *tr, char *mot, int i,int cpt  ){
 	//----------le cas ou l'arbre vide---------
     if (tr == NULL) {
     tr = allouer( mot); // allocation
-	tr->tab[*i] =cpt ;
+	tr->tab[i] =cpt ;
 	return tr ;
     }else{ if(trouver(mot , tr )==true){
                 // il y pas d'insertion
