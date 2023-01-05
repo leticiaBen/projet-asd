@@ -48,11 +48,11 @@ scanf ("%c%c", &m1&m2 );
 
  
   if (( m1 < tr->word ) && (m2 < tr->word )) {
-  return trouver ( m1 , tr->left ) ; T1 = *tr.occur ;
-  return trouver ( m2 , tr->left ) ; T2 = *tr.occur ;
+  return trouver ( m1 , tr->left ) ; T1 = tr->occur ;
+  return trouver ( m2 , tr->left ) ; T2 = tr->occur ;
   else  {               // si les mots existent dans la racine ou bien le fils droite on affiche leurs tableaux d'occurrence  
-   T1 = *tr.occur ;
-   T2 = *tr.occur ; 
+   T1 = tr->occur ;
+   T2 = tr->occur ; 
    }}
     n = sizeof (T1) ;
     m = sizeof(T2) ;
