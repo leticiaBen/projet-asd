@@ -65,7 +65,7 @@ maillon * allouerlist(int cpt ){
         tete =allouerlist(cpt);
         return ;
       }else {
-         return inslist (tete->suiv, cpt);
+        tete->suiv = inslist (tete->suiv, cpt);
       }
 
       }
@@ -119,26 +119,7 @@ node* insertion(node *tr, char *mot, int cpt  ){
 
 		}
     }
-
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------affichage----------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/*
-void affichagelist (maillon *tete){
-int     cpt=0;
- if (tete->suiv ==NULL){
-    printf(" position %d : %d \n",cpt , tete->info);
-     cpt++;
- }else{
-     affichagelist(tete->suiv);
- }
-
-
-}*/
-
-
-
+//----- une foction qui affiche l'arbre et les positions 
 void prefixe (node *R){
    int i ; int cpt ;
 	if (R==NULL){
@@ -147,8 +128,9 @@ void prefixe (node *R){
 		printf(" le mot  est : %s \n",R->word);
 		maillon *ptr ;
 		ptr = R->index;
+		printf("les positions :\n");
 		while(ptr!=NULL){
-            printf("les positions :\n");
+
             printf("%d \n ",ptr->info);
             ptr = ptr->suiv;
 
@@ -198,29 +180,3 @@ prefixe (R);
  fclose(F);
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
