@@ -2,10 +2,17 @@
 #include <stdlib.h>
 #include<string.h>
 #include <stdbool.h>
-//#using namespace std;
+
+// la structure de la liste des positions
+typedef struct maillon {
+	int info;
+	struct maillon *suiv ;
+}maillon ;
+// la structure de l'arbre
+
 typedef struct node{
 char word [20];
-int *tab ;
+maillon *index ; // ptr sur maillon
 struct node *left;
 struct node *right;
 } node;
@@ -16,7 +23,7 @@ struct node *right;
 //---------------------------------------------------------------------------------------------------------------------------------
 
 
-  bool trouver(char *mot , node *tr ) {
+  bool trouver(char *mot, node *tr ) {
    if(tr == NULL){
    //------------------- le cas ou l'arbre est vide----------
     return false ;
@@ -24,59 +31,90 @@ struct node *right;
        //------------ le cas ou le mot existe deja dans l'arbre-------------
     if(strcmp(mot ,tr->word)== 0){
             // mot = tr->word
-    return true;
+
+      return true;
     }else {
 	// le cas ou le mot  n'existe pas {la racine } on teste s'il exist dans les noeuds
 
     if(strlen (mot) <  strlen(tr->word)){
 
-	return trouver(mot, tr -> left);	// si la taille (mot ) < taille (tr -> word) on cherhche dans le fils gauche
+	return trouver(mot,   tr -> left);	// si la taille (mot ) < taille (tr -> word) on cherhche dans le fils gauche
     }else{
 
-    return trouver(mot, tr-> right); // si la taille (mot ) > taille (tr -> word) on cherhche dans le fils droite
+    return trouver(mot,tr-> right); // si la taille (mot ) > taille (tr -> word) on cherhche dans le fils droite
 }}}
 
 
-
-
-
 //--------------------------------------------------
-//-------------allocation d'un noued ---------------
+//-------------allocation d'un noued liste  ---------------
+//--------------------------------------------------
+
+maillon * allouerlist(int cpt ){
+    maillon *nouv = (maillon*)malloc(sizeof(maillon));
+    nouv->info = cpt ;
+    nouv->suiv = NULL;
+    return nouv ;
+}
+//--------------------------------------------------
+//-------------inserition d'un noued liste  ---------------
+//--------------------------------------------------
+
+      maillon *inslist(maillon* tete , int cpt){
+         maillon *Q;
+           maillon * nouv = allouerlist(cpt);
+      if (tete==NULL){
+        tete = nouv ;
+        Q = tete ;
+      }else {
+          Q->suiv =nouv ;
+          Q = nouv ;
+      }
+       return tete ;
+      }
+//--------------------------------------------------
+//-------------allocation d'un noued arbre ---------------
 //--------------------------------------------------
 node *allouer(char *word){
 	node *nouv= (node*)malloc(sizeof(node));
     strcpy( nouv->word , word);
     nouv->left = NULL;
     nouv->right = NULL;
-	nouv->tab =(int *)malloc (100*sizeof(int));// tableau dynamique tab[100]
+	nouv->index = NULL;
+
     return nouv ;
 }
 
 //----------------------------------------------------------------------------
-//-----------------------------------insertion--------------------------------
+//-----------------------------------insertion arbre--------------------------------
 //----------------------------------------------------------------------------
 
-node* insertion(node *tr, char *mot, int i,int cpt  ){
+node* insertion(node *tr, char *mot, int cpt  ){
 
+ // cpt : cpt de phrases
+node *ptr;
 	//----------le cas ou l'arbre vide---------
     if (tr == NULL) {
     tr = allouer( mot); // allocation
-	tr->tab[i] =cpt ;
-	return tr ;
-    }else{ if(trouver(mot , tr )==true){
-                // il y pas d'insertion
+    tr->index = inslist(tr->index,cpt);
 
-               tr->tab[i] =cpt ;
+	return tr ;
+    }else{
+
+
+        if( trouver (mot , tr )==true){
+                // il y pas d'insertion
+               tr->index = inslist(tr->index,cpt);
                return tr ;
-        }else { if (strlen(tr->word) > strlen(mot)){
+        }else {
+        if (strlen(tr->word) > strlen(mot)){
                 // ----------------existe un traitment --------------
                 // le cas d'insertion
 
-                tr->right = insertion (tr->right,mot, cpt,i); // R->mot > mot => fils droite{
+                tr->right = insertion (tr->right,mot, cpt); // R->mot > mot => fils droite{
 		        return tr ;
 		       }else {
 		 // tr->mot <= mot => fils gauche
-            tr->left =	insertion (tr->left,mot,cpt, i);
+            tr->left =	insertion (tr->left,mot,cpt);
             return tr ;
 		}}
 
@@ -88,15 +126,27 @@ node* insertion(node *tr, char *mot, int i,int cpt  ){
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------affichage----------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void affichagelist (maillon *tete){
+int     cpt=0;
+ if (tete->suiv ==NULL){
+    printf(" position %d : %d \n",cpt , tete->info);
+     cpt++;
+ }else{
+     affichagelist(tete->suiv);
+ }
+
+
+}
+
+
+
 void prefixe (node *R){
    int i ; int cpt ;
 	if (R==NULL){
 		return ;
 	}else {
 		printf(" le mot  est : %s \n",R->word);
-		for (i=0; i<3 ; i++){
-            printf("les positions des mots : %d , \n ", R->tab[i] );
-		}
+		affichagelist (R->index);
 		//cpt++;
 		prefixe(R->left);
 		prefixe(R->right);
@@ -126,17 +176,14 @@ int main(){
  R= NULL ;
  char mot [10] ;
  int  cpt =1;
-int i =0;
  while(!feof(F)){
  fscanf(F,"%s",mot);
        //le cas ou le mot ='.' alors o fait rien
            if (strcmp(mot ,".")==0){
 
             cpt++;// num de la phrase
-
            }else{
-
-            R= insertion (R , mot,cpt,i);
+            R= insertion (R , mot,cpt);
 
             }
  }
