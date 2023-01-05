@@ -51,8 +51,8 @@ scanf ("%c%c", &m1&m2 );
   return trouver ( m1 , tr->left ) ; T1 = *tr.occur ;
   return trouver ( m2 , tr->left ) ; T2 = *tr.occur ;
   else                 \\ si les mots existent dans la racine ou bien le fils droite on affiche leurs tableaux d'occurrence  
-   T1 = *R.vec ;
-   T2 = *R.vec ; 
+   T1 = *tr.occur ;
+   T2 = *tr.occur ; 
    }
     n = sizeof (T1) ;
     m = sizeof(T2) ;
@@ -68,3 +68,4 @@ else {
  printf (" la phrase n'existe pas dans le fichier ");
       }
    }   
+}
