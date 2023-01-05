@@ -46,9 +46,14 @@ scanf ("%c%c", &m1&m2 );
 //----------------------la recherche de l'existance d'une phrase dans un fichier texte --------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------
 
+  if( (trouver (m1, tr)==true) && (trouver(m2, tr)==true) {
+  
+  
+  
+  
  
-  if (( m1 < tr->word ) && (m2 < tr->word )) {
-  return trouver ( m1 , tr->left ) ; T1 = tr->occur ;
+ */ if (( m1 < tr->word ) && (m2 < tr->word )) {
+  return trouver ( m1 , tr->left ) ; T[i = tr->occur ;
   return trouver ( m2 , tr->left ) ; T2 = tr->occur ;
   else  {               // si les mots existent dans la racine ou bien le fils droite on affiche leurs tableaux d'occurrence  
    T1 = tr->occur ;
@@ -59,7 +64,7 @@ scanf ("%c%c", &m1&m2 );
     
     for ( i=1 ; i<n ; i++ ){
          for ( j=1 ; j<n ; j++ ){
-                  if ( T1[i] == T2[j] ) {
+                  if ( T1[i] == T2[j] ) { */
       
 printf (" la phrase existe dans le fichier dans la ligne %d ", T1[i]);
 }
