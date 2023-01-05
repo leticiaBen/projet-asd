@@ -60,16 +60,14 @@ maillon * allouerlist(int cpt ){
 //--------------------------------------------------
 
       maillon *inslist(maillon* tete , int cpt){
-         maillon *Q;
-           maillon * nouv = allouerlist(cpt);
+
       if (tete==NULL){
-        tete = nouv ;
-        Q = tete ;
+        tete =allouerlist(cpt);
+        return ;
       }else {
-          Q->suiv =nouv ;
-          Q = nouv ;
+         return inslist (tete->suiv, cpt);
       }
-       return tete ;
+
       }
 //--------------------------------------------------
 //-------------allocation d'un noued arbre ---------------
@@ -91,7 +89,7 @@ node *allouer(char *word){
 node* insertion(node *tr, char *mot, int cpt  ){
 
  // cpt : cpt de phrases
-node *ptr;
+
 	//----------le cas ou l'arbre vide---------
     if (tr == NULL) {
     tr = allouer( mot); // allocation
